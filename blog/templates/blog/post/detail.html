@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -9,7 +10,8 @@
 </p>
 
 <p> {{ post.status}} </p>
-{{ post.body|linebreaks }}
+<!-- {{ post.body|linebreaks }} -->
+{{ post.body|markdown }}
 
 <!-- <p class="tags">Tags is: {{ post.tags.all|join:", " }}</p> -->
 

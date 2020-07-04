@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+##added this line
+SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -40,8 +42,12 @@ INSTALLED_APPS = [
     # 'blog',
     'blog.apps.BlogConfig',
     'bootstrap3',
-    
+    ##for tags
     'taggit',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
+    ## simple search lookup
+    'django.contrib.postgres',
 
 ]
 
