@@ -12,7 +12,8 @@ from taggit.models import Tag
 from django.db.models import Count
 # from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.contrib.postgres.search import SearchVector, SearchQuery,SearchRank
-
+## searching with trigram similarity
+from django.contrib.postgres.search import TrigramSimilarity
 
 
 
@@ -142,11 +143,16 @@ def post_search(request):
                             SearchVector('body', weight='B')
 
             search_query = SearchQuery(query)
-            results = Post.published.annotate(
-                        search=search_vector,
-                        rank=SearchRank(search_vector, search_query)
-                        ).filter(rank__gte=0.3).order_by('-rank')
 
+            # results = Post.published.annotate(
+            #             search=search_vector,
+            #             rank=SearchRank(search_vector, search_query)
+            #             ).filter(rank__gte=0.3).order_by('-rank')
+
+
+            results = Post.published.annotate(
+                similarity=TrigramSimilarity('title', query),
+                ).filter(similarity__gt=0.1).order_by('-similarity')
 
 
 
